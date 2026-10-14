@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Grazer Sync",
+  "version": "0.1.0",
+  "description": "Hands your logged-in session for chosen sites to the Grazer companion, on this device only.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyDv0xKpA2kkb0t8IoYtrnSFnPYtYzePVvZRqobqkcoyePTuSeAWyj7x72QHrEAn5AUdg566rt3uayxh6NEx+QHEAYN4nPkmibdkXqhtF4XvtCgILALVyo5i1TL6V/SHx8a71iGlLGK8nk0RPl2UXZyGIJFWe8ecLBtjunL/qv/7F/2AzRU1gNRS/LcNgQg5HmeDquqhRVwBZK8Udotab4QG6xBo6ThohPR297rGwr+JG9PfHcgAFoJko/6BWsY5k56aw3Nk58wPEuc9gkB6Wcs6+LGDtBC/InXndtRDmsaAKSy8e6lpkOyXKfXc2/Y+0U5lNcEk6WibfQ26L5X+IjwIDAQAB",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "cookies",
+    "tabs",
+    "scripting",
+    "nativeMessaging",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.mjs",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Grazer Sync"
+  }
+}

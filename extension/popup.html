@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Grazer Sync</title>
+<style>
+  /* Warm low-blue: the blue channel is held below the red and green channels
+     in every value here, so the popup can open at 2am over a running agent
+     without the usual screen-glare. Separation comes from planes, spacing and
+     the ember rail — there is not one border or underline in this file. */
+  :root {
+    --ground:     #17120e;
+    --raised:     #211a14;
+    --raised-lit: #2b2119;
+    --ink:        #f0e2d0;
+    --ink-dim:    #a8927c;
+    --ink-mid:    #9c836b;   /* 4.8:1 on --raised: the floor for small text */
+    --ink-faint:  #6f5c4b;   /* non-text only: the unlit rail */
+    --ember:      #e8935c;
+    --ember-deep: #b4623a;
+    --sage:       #a8b57e;
+    --rust:       #d0705a;
+
+    --display: "Segoe UI Variable Display", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+
+    --rail: 3px;
+    --step: 8px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    width: 340px;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--display);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .shell { padding: calc(var(--step) * 2); display: grid; gap: calc(var(--step) * 1.75); }
+
+  /* ---------------------------------------------------------- masthead -- */
+
+  .masthead { display: grid; gap: calc(var(--step) * 0.5); }
+
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--step);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .wordmark b { font-weight: 700; color: var(--ink); }
+  .wordmark b i { font-style: normal; color: var(--ember); }
+
+  .host {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    color: var(--ink-mid);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .host::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    transition: background 160ms ease;
+  }
+  .host[data-state="ready"]::before { background: var(--sage); }
+  .host[data-state="ready"] { color: var(--ink-dim); }
+  .host[data-state="missing"]::before { background: var(--rust); }
+  .host[data-state="missing"] { color: var(--rust); }
+
+  .lede { color: var(--ink-dim); font-size: 12px; max-width: 30ch; }
+
+  /* -------------------------------------------------------------- list -- */
+
+  .sites { display: grid; gap: 2px; max-height: 236px; overflow-y: auto; margin: 0 calc(var(--step) * -1); padding: 0 var(--step); }
+  .sites::-webkit-scrollbar { width: 6px; }
+  .sites::-webkit-scrollbar-thumb { background: var(--raised-lit); border-radius: 3px; }
+  .sites::-webkit-scrollbar-track { background: transparent; }
+
+  .site {
+    all: unset;
+    display: grid;
+    grid-template-columns: var(--rail) 1fr;
+    gap: calc(var(--step) * 1.25);
+    align-items: stretch;
+    padding: calc(var(--step) * 0.875) var(--step);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+    transition: background 140ms ease;
+  }
+
+  .site:hover { background: var(--raised); }
+  .site[aria-checked="true"] { background: var(--raised); }
+  .site[aria-checked="true"]:hover { background: var(--raised-lit); }
+  .site:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+
+  /* The rail is the whole selection affordance: lit means this site's session
+     goes across. No checkbox glyph, no border. */
+  .site i {
+    display: block;
+    border-radius: 2px;
+    background: var(--ink-faint);
+    transition: background 140ms ease;
+  }
+  .site[aria-checked="true"] i { background: var(--ember); }
+  .site[data-result="ok"] i { background: var(--sage); }
+  .site[data-result="failed"] i { background: var(--rust); }
+
+  .site-body { display: block; min-width: 0; }
+
+  .site-name {
+    display: block;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    word-break: break-all;
+    transition: color 140ms ease;
+  }
+  .site[aria-checked="true"] .site-name { color: var(--ink); }
+
+  .site-note {
+    display: block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-mid);
+    margin-top: 2px;
+    word-break: break-all;
+  }
+  .site[data-result="ok"] .site-note { color: var(--sage); }
+  .site[data-result="failed"] .site-note { color: var(--rust); }
+
+  .empty {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-mid);
+    padding: var(--step);
+  }
+
+  /* --------------------------------------------------------------- add -- */
+
+  .add { display: grid; grid-template-columns: 1fr auto; gap: var(--step); align-items: center; }
+
+  .add input {
+    all: unset;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink);
+    background: var(--raised);
+    padding: calc(var(--step) * 0.75) var(--step);
+    border-radius: 3px;
+    min-width: 0;
+  }
+  .add input::placeholder { color: var(--ink-mid); }
+  .add input:focus-visible { outline: 2px solid var(--ember-deep); outline-offset: 1px; }
+
+  .add button {
+    all: unset;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-dim);
+    padding: calc(var(--step) * 0.75) var(--step);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: color 140ms ease, background 140ms ease;
+  }
+  .add button:hover { color: var(--ember); background: var(--raised); }
+  .add button:focus-visible { outline: 2px solid var(--ember); outline-offset: 1px; }
+
+  /* --------------------------------------------------------------- go --- */
+
+  .go {
+    all: unset;
+    display: block;
+    text-align: center;
+    font-family: var(--display);
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ground);
+    background: var(--ember);
+    padding: calc(var(--step) * 1.25);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 140ms ease, color 140ms ease;
+  }
+  .go:hover:not(:disabled) { background: #f2a672; }
+  .go:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+  .go:disabled { background: var(--raised); color: var(--ink-mid); cursor: default; }
+
+  .go[data-busy="true"] {
+    background: linear-gradient(90deg, var(--ember-deep) 0%, var(--ember) 50%, var(--ember-deep) 100%);
+    background-size: 300% 100%;
+    animation: sweep 1.1s linear infinite;
+    color: var(--ground);
+    cursor: progress;
+  }
+  @keyframes sweep { to { background-position: -300% 0; } }
+
+  .status {
+    font-family: var(--mono);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ink-mid);
+    min-height: 2.4em;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+  .status[data-tone="ok"] { color: var(--sage); }
+  .status[data-tone="failed"] { color: var(--rust); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition-duration: 1ms !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="wordmark">
+        <b>Grazer<i>&nbsp;Sync</i></b>
+        <span class="host" id="host" data-state="checking">checking</span>
+      </div>
+      <p class="lede">Hand a logged-in site to your agent's browser space. Nothing leaves this device.</p>
+    </header>
+
+    <div class="sites" id="sites" role="group" aria-label="Sites to sync"></div>
+
+    <form class="add" id="add">
+      <input id="origin" type="text" placeholder="add a site, e.g. example.com" aria-label="Add a site" autocomplete="off" spellcheck="false">
+      <button type="submit">add</button>
+    </form>
+
+    <button class="go" id="go" type="button" disabled>Select a site</button>
+    <p class="status" id="status" data-tone="idle">Nothing has left this device yet.</p>
+  </main>
+  <script type="module" src="popup.mjs"></script>
+</body>
+</html>

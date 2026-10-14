@@ -1,0 +1,5 @@
+node_modules/
+dist/
+grazer.js
+bin/
+.build.lock

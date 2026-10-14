@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grazer frames fixture</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 16px; font-size: 13px; }
+      iframe { width: 320px; height: 120px; display: block; margin: 8px 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Frames fixture</h1>
+    <button id="outer-button">Outer action</button>
+    <iframe id="same-origin-frame" title="Same origin frame" src="/child.html"></iframe>
+    <iframe id="cross-origin-frame" title="Cross origin frame" src="__CROSS_ORIGIN__/child.html"></iframe>
+  </body>
+</html>

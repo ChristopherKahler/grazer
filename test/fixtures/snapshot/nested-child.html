@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grazer nested child frame</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 6px; font-size: 12px; }
+      iframe { width: 240px; height: 90px; display: block; margin: 6px 0; }
+    </style>
+  </head>
+  <body>
+    <h2>Child frame</h2>
+    <button id="inner-button">Inner action</button>
+    <iframe id="grandchild-frame" title="Grandchild frame" src="__DEEP_ORIGIN__/grandchild.html"></iframe>
+  </body>
+</html>

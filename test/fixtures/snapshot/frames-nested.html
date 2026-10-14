@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grazer nested frames fixture</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 16px; font-size: 13px; }
+      iframe { width: 340px; height: 200px; display: block; margin: 8px 0; }
+    </style>
+  </head>
+  <body>
+    <h1>Nested frames fixture</h1>
+    <button id="outer-button">Outer action</button>
+    <iframe id="cross-origin-frame" title="Cross origin frame" src="__CROSS_ORIGIN__/nested-child.html"></iframe>
+  </body>
+</html>

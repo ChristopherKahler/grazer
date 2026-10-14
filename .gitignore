@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.worktrees/
+.base-ast/
+.base-ast-cache/
+packages/harness/node_modules/
+packages/harness/dist/
+packages/harness/artifacts/
+extension/*.pem
+*.log
+.DS_Store
+Thumbs.db
+release/
+.paul/
+bench/results/*
+!bench/results/.gitkeep

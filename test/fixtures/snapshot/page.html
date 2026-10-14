@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grazer snapshot fixture</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 16px;
+        font-size: 13px;
+      }
+      .hidden-box {
+        display: none;
+      }
+      .duplicate-action {
+        margin-right: 4px;
+      }
+      #far-below {
+        margin-top: 5000px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Helper e2e fixture</h1>
+    <p>Snapshot fixture page for the Grazer accessibility renderer.</p>
+    <button id="click-button">Click counter</button>
+    <p>
+      <label for="text-input">Text input</label>
+      <input id="text-input" type="text" value="initial" />
+    </p>
+    <p><a href="/nav-target">Nav target</a></p>
+    <p>
+      <button class="duplicate-action" type="button">Duplicate action</button>
+      <button class="duplicate-action" type="button">Duplicate action</button>
+    </p>
+    <ul>
+      <li>First item</li>
+      <li>
+        Second item
+        <ul>
+          <li>Nested item</li>
+        </ul>
+      </li>
+    </ul>
+    <div class="hidden-box">Hidden content</div>
+    <p id="far-below">Far below</p>
+  </body>
+</html>

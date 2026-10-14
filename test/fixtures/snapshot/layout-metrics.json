@@ -1,0 +1,46 @@
+{
+  "layoutViewport": {
+    "pageX": 0,
+    "pageY": 0,
+    "clientWidth": 869,
+    "clientHeight": 605
+  },
+  "visualViewport": {
+    "offsetX": 0,
+    "offsetY": 0,
+    "pageX": 0,
+    "pageY": 0,
+    "clientWidth": 869,
+    "clientHeight": 605,
+    "scale": 1,
+    "zoom": 1
+  },
+  "contentSize": {
+    "x": 0,
+    "y": 0,
+    "width": 869,
+    "height": 5316
+  },
+  "cssLayoutViewport": {
+    "pageX": 0,
+    "pageY": 0,
+    "clientWidth": 869,
+    "clientHeight": 605
+  },
+  "cssVisualViewport": {
+    "offsetX": 0,
+    "offsetY": 0,
+    "pageX": 0,
+    "pageY": 0,
+    "clientWidth": 869,
+    "clientHeight": 605,
+    "scale": 1,
+    "zoom": 1
+  },
+  "cssContentSize": {
+    "x": 0,
+    "y": 0,
+    "width": 869,
+    "height": 5316
+  }
+}

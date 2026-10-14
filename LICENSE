@@ -1,0 +1,27 @@
+Grazer
+Copyright (c) 2026 Christopher Kahler. All rights reserved.
+
+Grazer, including its source code, documentation, browser extension and
+installers, is the property of Christopher Kahler. It is not open source.
+
+You may download, install and use Grazer on your own computers for your own
+work, and you may read its source code.
+
+You may not, without written permission from Christopher Kahler:
+  - copy, redistribute, publish or share Grazer or any part of it, except by
+    pointing others to its official repository;
+  - sell, rent, sublicense or otherwise offer Grazer, or any modified version
+    of it, to anyone;
+  - use Grazer's code, or modified versions of it, in another product.
+
+Third-party code keeps its own license. The files in packages/harness are
+distributed under the MIT License in packages/harness/LICENSE, and that
+license applies to those files only.
+
+GRAZER IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF OR IN CONNECTION WITH GRAZER
+OR ITS USE.
+
+Permission requests: https://grazerai.com
